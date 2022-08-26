@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import mongoose, { Model, UpdateQuery } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Person, PersonDocument } from 'src/schemas/person.schema';
@@ -35,11 +35,11 @@ export class PersonsService {
     return this.personModel.findOne({_id: id}).exec();
   }
 
-  async update(id : String, personUpdated : UpdatePersonDto) {
+  async update(id : String, personUpdated : UpdatePersonDto) : Promise<any> {
     return this.personModel.updateOne({_id : id}, {$set: {...personUpdated}}).exec();
   }
 
-  async delete(id : String){
+  async delete(id : String) : Promise<any> {
     return this.personModel.deleteOne({_id : id}).exec();
   }
 
