@@ -1,0 +1,16 @@
+<hr>
+<h3 class="align-center">Cadastros:</h3>
+<div class="persons-container flex-row">
+    <div class="row flex-fill" >
+        <div class="card" *ngFor="let person of persons$ | async">
+            <div class="card-body">
+                <p>{{ person.nome }}</p>
+                <p>{{ person.cpf }}</p>
+                <p>{{ person.email }}</p>
+                <p>{{ person.telefone }}</p>
+                <p>{{ person.sexo }}</p>
+                <p>{{ person.dataNascimento }}</p>
+            </div>
+        </div>
+    </div>
+</div>

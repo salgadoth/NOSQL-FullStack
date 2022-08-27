@@ -11,17 +11,10 @@ import { format } from 'path';
 export class PersonsService {
   constructor(@InjectModel(Person.name) private personModel: Model<PersonDocument>) {}
 
-  async create(createPersonDto: CreatePersonDto): Promise<Person> {
-    const [dia, mes, ano] = createPersonDto.dataNascimento.split('/');
+  async create(createPersonDto: CreatePersonDto): Promise<Person> {    
+    createPersonDto = this.formatDate(createPersonDto)
     
-    let date = new Date(+mes,+dia,+ano);
-    let sysDate = new Date();
-    
-    if(sysDate.getFullYear() - date.getFullYear() > 18){
-      createPersonDto.isAdult = true;
-    } else {
-      createPersonDto.isAdult = false;
-    }
+    createPersonDto = this.checkAge(createPersonDto)
 
     const createdPerson = new this.personModel(createPersonDto);
     return createdPerson.save();
@@ -47,5 +40,29 @@ export class PersonsService {
     let person = new Person()
     person = await this.personModel.findOne({_id : id}).exec();
     return person.cpf;
+  }
+
+  formatDate(dto : CreatePersonDto){
+    const [ano, mes, dia] = dto.dataNascimento.split('-');
+    
+    dto.dataNascimento = dia + "/" + mes + "/" + ano
+
+    return dto;
+  }
+
+  checkAge(dto : CreatePersonDto) {
+    const [ano, mes, dia] = dto.dataNascimento.split('/');
+    
+    let date = new Date(+mes,+dia,+ano);
+    let sysDate = new Date();
+
+
+    if(sysDate.getFullYear() - date.getFullYear() > 18){
+      dto.isAdult = true;
+    } else {
+      dto.isAdult = false;
+    }
+    
+    return dto;
   }
 }
