@@ -1,22 +1,17 @@
-### STAGE 1: Build ###
-FROM node:latest AS build
+FROM node:alpine as angular
 
 WORKDIR "/frontend"
 
-COPY package.json package-lock.json ./
+COPY . .
 
 RUN npm install
 
-COPY . .
-
 RUN npm run build
 
-### STAGE 2: Run ###
+FROM nginx:alpine
 
-FROM nginx:1.17.1-alpine
+VOLUME /var/cache/nginx
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=angular frontend/dist/frontend /usr/share/nginx/html
 
-COPY --from=build /frontend/src /usr/share/nginx/html
-
-EXPOSE 80
+COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
