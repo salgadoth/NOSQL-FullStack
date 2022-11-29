@@ -4,7 +4,7 @@ import { PersonsModule } from './person/persons.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb+srv://db_user:EdLBIrIyVu8aM1K4@wevo-cluster.g13txai.mongodb.net/?retryWrites=true&w=majority"),
+    MongooseModule.forRoot("MONGODB_CREDENTIALS"),
     PersonsModule
   ]
 })
