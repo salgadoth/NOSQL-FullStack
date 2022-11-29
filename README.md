@@ -2,7 +2,7 @@
 
 Projeto conceitual FullStack NOSQL com CRUD completo. 
 
-Tecnologias utilizadas:
+Tecnologias utilizadas: <br/>
 TypeScript <br/>
 Nest.js + Mongoose <br/>
 Angular <br/>
@@ -20,7 +20,7 @@ docker-compose -f "docker-compose.yml" up -d --build
 
 Simple FullStack CRUD project with a NOSQL DataBase. 
 
-Technologies used:
+Technologies used: <br/>
 TypeScript <br/>
 Nest.js + Mongoose <br/>
 Angular <br/>
